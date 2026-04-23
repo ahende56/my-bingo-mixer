@@ -1,0 +1,6 @@
+{
+  "event": "PreCommit",
+  "command": "npm run test",
+  "blockOnFailure": true,
+  "description": "Run tests before allowing commits to ensure code quality"
+}

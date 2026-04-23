@@ -304,6 +304,26 @@ describe('bingoLogic', () => {
       });
       expect(checkBingo(board)).toBeNull();
     });
+
+    it('should detect four corners bingo pattern', () => {
+      const board = generateBoard();
+      // Mark four corners: top-left (0), top-right (4), bottom-left (20), bottom-right (24)
+      [0, 4, 20, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      const result = checkBingo(board);
+      expect(result).not.toBeNull();
+      expect(result?.type).toBe('four-corners');
+      expect(result?.squares).toEqual([0, 4, 20, 24]);
+    });
+
+    it('should return null when only 3 corners are marked', () => {
+      const board = generateBoard();
+      [0, 4, 20].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      expect(checkBingo(board)).toBeNull();
+    });
   });
 
   describe('getWinningSquareIds', () => {

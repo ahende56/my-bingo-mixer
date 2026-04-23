@@ -1,0 +1,6 @@
+{
+  "event": "PostToolUse",
+  "command": "npm run test",
+  "blockOnFailure": true,
+  "description": "Run tests after tool usage and block agent from continuing if tests fail"
+}

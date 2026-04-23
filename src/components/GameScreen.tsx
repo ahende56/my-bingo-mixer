@@ -17,33 +17,51 @@ export function GameScreen({
   onReset,
 }: GameScreenProps) {
   return (
-    <div className="flex flex-col min-h-full bg-gray-50">
+    <div className="flex flex-col min-h-full relative overflow-hidden">
+      {/* Cosmic background */}
+      <div className="absolute inset-0">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-0.5 h-0.5 bg-stars rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`
+            }}
+          />
+        ))}
+        {/* Nebula effects */}
+        <div className="absolute top-10 right-10 w-40 h-40 bg-accent/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-xl animate-bounce"></div>
+      </div>
+
       {/* Header */}
-      <header className="flex items-center justify-between p-3 bg-white border-b border-gray-200">
+      <header className="flex items-center justify-between p-3 bg-black/50 backdrop-blur-lg border-b border-accent/30 relative z-10">
         <button
           onClick={onReset}
-          className="text-gray-500 text-sm px-3 py-1.5 rounded active:bg-gray-100"
+          className="text-text-secondary text-sm px-3 py-1.5 rounded border border-accent/50 hover:bg-accent/20 transition-colors"
         >
-          ← Back
+          ← MISSION ABORT
         </button>
-        <h1 className="font-bold text-gray-900">Bingo Mixer</h1>
+        <h1 className="font-bold text-accent text-xl tracking-wider drop-shadow-2xl">BINGO MIXER</h1>
         <div className="w-16"></div>
       </header>
 
       {/* Instructions */}
-      <p className="text-center text-gray-500 text-sm py-2 px-4">
-        Tap a square when you find someone who matches it.
+      <p className="text-center text-text-secondary text-sm py-2 px-4 font-semibold tracking-wide drop-shadow-md">
+        Mark squares when you find cosmic connections.
       </p>
 
       {/* Bingo indicator */}
       {hasBingo && (
-        <div className="bg-amber-100 text-amber-800 text-center py-2 font-semibold text-sm">
-          🎉 BINGO! You got a line!
+        <div className="bg-gradient-to-r from-bingo to-accent text-white text-center py-3 font-bold text-sm shadow-2xl border-y border-glow/50 animate-pulse drop-shadow-2xl">
+          🚀 BINGO ACHIEVED! 🚀
         </div>
       )}
 
       {/* Board */}
-      <div className="flex-1 flex items-center justify-center p-3">
+      <div className="flex-1 flex items-center justify-center p-3 relative z-10">
         <BingoBoard
           board={board}
           winningSquareIds={winningSquareIds}
